@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <title>JavaChan - Kategorie</title>
+</head>
+<body>
+<form th:fragment="form" th:action="@{/thread/__${thread.id}__}" th:object="${newReply}" method="post"
+      class="form-horizontal" enctype="multipart/form-data">
+    <div class="form-group" th:classappend="${#fields.hasErrors('body')} ? has-error">
+        <label class="col-sm-2 control-label" for="body">Treść</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" id="body" th:field="*{body}" rows="3"></textarea>
+            <span th:classappend="${#fields.hasErrors('body')}" class="help-block" th:errors="*{body}">Błąd pola</span>
+        </div>
+    </div>
+    <div class="form-group" th:classappend="${#fields.hasErrors('attachment')} ? has-error">
+        <label class="col-sm-2 control-label" for=
+                "attachment">Plik</label>
+        <div class="col-sm-10">
+            <input id="attachment" th:field="*{attachment}" type="file"/>
+            <p class="help-block">GIF/JPG/PNG - Max. 4MB</p>
+            <span th:classappend="${#fields.hasErrors('attachment')}" class="help-block"
+                  th:errors="*{attachment}">Błąd pola</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button class="btn btn-default" type="submit">
+                <span aria-hidden="true" class="glyphicon glyphicon glyphicon-plus-sign"> Dodaj</span>
+            </button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

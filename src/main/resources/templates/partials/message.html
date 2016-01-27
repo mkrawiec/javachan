@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>JavaChan - Kategorie</title>
+</head>
+<body>
+<div th:fragment="message">
+    <div class="row">
+        <div th:id="${message.id}" class="panel panel-default">
+            <div class="panel-heading">
+                <strong>Anonim</strong> - <span
+                    th:text="${#dates.format(message.createdAt, 'dd MMM yyyy HH:mm')}"></span>
+                - <a th:text="'#'+${message.id}" th:href="${threadUrl} ? ${threadUrl} : '#'+${message.id}">#321321</a>
+                <a th:if="${threadUrl}" class="btn btn-primary btn-xs pull-right" th:href="${threadUrl}" href="#"
+                   role="button">
+                    <span aria-hidden="true" class="glyphicon glyphicon-comment"></span> Odpowiedz
+                </a>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div th:if="${message.attachment}" th:with="attachementUrl=@{/uploads/__${message.attachment}__}"
+                         class="col-sm-3 col-xs-12">
+                        <a data-toggle="lightbox" th:href="${attachementUrl}" th:attr="data-title=${message.attachment}"
+                           href="img/bird.jpg">
+                            <img class="img-responsive" th:src="${attachementUrl}" src="img/bird.jpg"/>
+                        </a>
+                    </div>
+                    <div class="col-sm-9" th:class="${message.attachment} ? com-sm-9 : col-sm-12 ">
+                        <p th:utext="${#strings.replace(#strings.escapeJava(message.body),'\r\n','&lt;br /&gt;')}">
+                            I guess the mods here are super nice care bear
+                            types that let this shit go on...because frankly..
+                            Nowadays if some person has the brain capacity to
+                            even consider asking others about what Headphones
+                            they should buy...they are already a soul that more
+                            intelligent individuals have to nurture in hopes
+                            that one day those kids will try a little harder
+                            and grow up to carry the torch.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

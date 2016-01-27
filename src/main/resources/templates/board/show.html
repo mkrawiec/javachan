@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title th:text="'JavaChan - ' + ${board.name}">JavaChan - Kategoria</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row">
+        <h3>Nowy wątek
+            <small th:text="${board.name}">Nazwa</small>
+        </h3>
+        <div class="well well-sm">
+            <form th:replace="partials/form_add :: form"></form>
+        </div>
+    </div>
+    <hr/>
+    <div th:each="thread : ${threads}" th:include="partials/message :: message"
+         th:with="message=${thread.threadMessage}, threadUrl=@{/thread/__${thread.id}__/}"
+         th:remove="tag">
+    </div>
+    <div class="row" th:if="${!threads.hasContent() and threads.isFirst()}">
+        <div class="alert"><strong>Brak wątków.</strong> Rozpocznij dyskusję dodając nowy.</div>
+    </div>
+    <nav th:if="${threads.hasContent()}" th:include="partials/pagination :: pagination"
+         th:with="page=${threads}" th:remove="tag"></nav>
+</div>
+</body>
+</html>

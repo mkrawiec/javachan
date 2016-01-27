@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <title>JavaChan - Kategorie</title>
+</head>
+<body>
+<div th:fragment="pagination">
+    <nav class="text-center">
+        <ul class="pagination">
+            <li th:unless="${page.isFirst()}">
+                <a aria-label="Previous" th:href="'?page='+${page.getNumber()}" href="#">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li th:if="${page.isFirst()}" th:class="disabled">
+                <span aria-hidden="true">&laquo;</span>
+            </li>
+            <li th:each="pageNumber : ${#numbers.sequence(1, page.getTotalPages())}"
+                th:classappend="${(page.getNumber() + 1) eq pageNumber} ? active">
+                <a href="#" th:href="'?page='+${pageNumber}" th:text="${pageNumber}">1</a>
+            </li>
+            <li th:unless="${page.isLast()}">
+                <a aria-label="Previous" th:href="'?page='+${page.getNumber() + 2}" href="#">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            <li th:if="${page.isLast()}" th:class="disabled">
+                <span aria-hidden="true">&raquo;</span>
+            </li>
+        </ul>
+    </nav>
+</div>
+</body>
+</html>

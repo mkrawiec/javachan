@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title th:text="'JavaChan - ' + ${thread.title}">JavaChan - Wątek</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div th:if="${postSuccess}" class="panel panel-success">
+        <div class="panel-heading">
+            Sukces!
+        </div>
+        <div class="panel-body">
+            Pomyślnie dodano wiadomość.
+        </div>
+    </div>
+    <div th:unless="${postSuccess}" class="row">
+        <h3>Odpowiedz
+            <small th:text="${thread.title}">Nazwa</small>
+        </h3>
+        <div class="well well-sm">
+            <form th:replace="partials/form_reply :: form"></form>
+        </div>
+    </div>
+    <hr/>
+    <div th:include="partials/message :: message"
+         th:with="message=${thread.threadMessage}">
+    </div>
+    <div class="replies">
+        <div th:each="reply : ${thread.replies}" th:include="partials/message :: message"
+             th:with="message=${reply}">
+        </div>
+    </div>
+</div>
+</body>
+</html>

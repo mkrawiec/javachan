@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>JavaChan - Kategorie</title>
+</head>
+<body>
+<div class="container">
+    <div class="row marketing" layout:fragment="content">
+        <div th:each="boardColumn : ${T(com.google.common.collect.Lists).partition(boards, boards.size()/2)}"
+             class="col-lg-6">
+            <div th:each="board : ${boardColumn}">
+                <h4><a href="#" th:href="@{/_/__${board.slug}__/}" th:text="${board.name}">Dyskusja ogólna</a></h4>
+                <p th:text="${board.description}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+                    luctus nec velit ut semper.</p>
+            </div>
+        </div>
+    </div>
+</div> <!-- /container -->
+</body>
+</html>
+
